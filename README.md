@@ -1,79 +1,95 @@
-<p align="center">
-  <a href="https://nextjs-flask-starter.vercel.app/">
-    <img src="https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" height="96">
-    <h3 align="center">Next.js Flask Starter</h3>
-  </a>
-</p>
+# 🕵️‍♂️ Hidden Pixels
 
-<p align="center">Simple Next.js boilerplate that uses <a href="https://flask.palletsprojects.com/">Flask</a> as the API backend.</p>
+**Hidden Pixels** is a cryptography toolkit that lets users securely hide messages within images (steganography) and encrypt files using modern encryption algorithms like AES and 3DES. Built for privacy enthusiasts, students, and developers interested in applied cryptography.
 
-<br/>
+---
 
-## Introduction
+## ✨ Features
 
-This is a hybrid Next.js + Python app that uses Next.js as the frontend and Flask as the API backend. One great use case of this is to write Next.js apps that use Python AI libraries on the backend.
+- 🔐 **Steganography**
+  - Embed secret messages inside PNG images
+  - Extract hidden messages from stego-images
+  - Adjustable start bit and interval for added complexity
 
-## How It Works
+- 🧱 **File Encryption**
+  - AES (128, 192, 256-bit) encryption & decryption
+  - 3DES encryption & decryption
+  - Secure IV handling and download-ready files
 
-The Python/Flask server is mapped into to Next.js app under `/api/`.
+- 🧑‍💻 **User Authentication**
+  - Sign up / log in via Supabase & NextAuth.js
+  - Access tools securely with authenticated sessions
 
-This is implemented using [`next.config.js` rewrites](https://github.com/vercel/examples/blob/main/python/nextjs-flask/next.config.js) to map any request to `/api/:path*` to the Flask API, which is hosted in the `/api` folder.
+- 🌐 **Full Stack Architecture**
+  - Frontend: Next.js (TypeScript)
+  - Backend: Python (Flask)
+  - Auth + Storage: Supabase
+  - Deployment: Vercel (Frontend), PythonAnywhere/Fly.io/etc. (Backend)
 
-On localhost, the rewrite will be made to the `127.0.0.1:5328` port, which is where the Flask server is running.
+---
 
-In production, the Flask server is hosted as [Python serverless functions](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python) on Vercel.
+## 🛠 Tech Stack
 
-## Demo
+| Layer       | Tech                          |
+|------------|-------------------------------|
+| Frontend    | Next.js (TypeScript)          |
+| Backend     | Flask (Python)                |
+| Auth        | Supabase + NextAuth.js        |
+| Storage     | Supabase Storage              |
+| Crypto      | Python `cryptography`, `pycryptodome` |
+| Hosting     | Vercel (frontend), TBD (backend) |
 
-https://nextjs-flask-starter.vercel.app/
+---
 
-## Deploy Your Own
+## 📦 Installation
 
-You can clone & deploy it to Vercel with one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-title=Next.js%20Flask%20Starter&demo-description=Simple%20Next.js%20boilerplate%20that%20uses%20Flask%20as%20the%20API%20backend.&demo-url=https%3A%2F%2Fnextjs-flask-starter.vercel.app%2F&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F795TzKM3irWu6KBCUPpPz%2F44e0c6622097b1eea9b48f732bf75d08%2FCleanShot_2023-05-23_at_12.02.15.png&project-name=Next.js%20Flask%20Starter&repository-name=nextjs-flask-starter&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fnextjs-flask&from=vercel-examples-repo)
-
-## Developing Locally
-
-You can clone & create this repo with the following command
+### 🔧 Backend (Flask API)
 
 ```bash
-npx create-next-app nextjs-flask --example "https://github.com/vercel/examples/tree/main/python/nextjs-flask"
-```
+cd api
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python index.py
 
-## Getting Started
 
-First, install the dependencies:
-
-```bash
+cd app
 npm install
-# or
-yarn
-# or
-pnpm install
-```
-
-Then, run the development server:
-
-```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The Flask server will be running on [http://127.0.0.1:5328](http://127.0.0.1:5328) – feel free to change the port in `package.json` (you'll also need to update it in `next.config.js`).
 
-## Learn More
+📂 API Endpoints
 
-To learn more about Next.js, take a look at the following resources:
+🔍 Steganography
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Flask Documentation](https://flask.palletsprojects.com/en/1.1.x/) - learn about Flask features and API.
+Route	Method	Description
+/api/embedImage	POST	Embed a message in an image
+/api/extract	POST	Extract hidden message from image
+🔒 Encryption
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-# hidden-pixels
+Route	Method	Description
+/encrypt/aes	POST	Encrypt file with AES
+/decrypt/aes	POST	Decrypt AES-encrypted file
+/encrypt/3des	POST	Encrypt file with 3DES
+/decrypt/3des	POST	Decrypt 3DES-encrypted file
+🧪 Usage (Example with Postman)
+
+Embed Image
+POST /api/embedImage
+Form Data:
+carrier: (image file)
+message: "Secret message"
+start_bit: 2048
+period: 8
+Returns:
+
+output_image: Modified image with embedded message
+🚧 Roadmap
+
+ Add RSA encryption support
+ Drag-and-drop UI
+
+🧠 Credits
+
+Built by Omer Khan to combine cryptography and creative design.
